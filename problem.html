@@ -26,7 +26,7 @@
             <option><strong>bounced</strong></option>
             <option><strong>>opened and not replied</strong></option>
         </select>
-        <select id="datelist1">
+        <select onchange="getdiv(this)">
             <option value="1">in the last</option>
             <option value="2">On</option>
             <option value="2">before</option>
@@ -111,7 +111,7 @@
             <input type="radio" name="status" value="" id="withoutact">
             <label for=""><strong>Without any activity</strong></label><br>
             <div id="showwithoutact" style="display:none;">
-                <select id="datelist2">
+                <select onchange="getdiv(this)">
                     <option value="1">in the last</option>
                     <option value="2">On</option>
                     <option value="2">before</option>
@@ -125,7 +125,7 @@
                     <option>Last Week</option>
                     <option>Last Month</option>
                 </select>
-                <div id="inthelast2" style="display: none;" class="m-t-10">
+                <div style="display: none;" class="m-t-10">
                     <input type="number" name="" class="" style="width: 50px; height: 21px;">
                     <select class="">
                         <option>weeks</option>
@@ -133,12 +133,12 @@
                         <option>months</option>
                     </select>
                 </div>
-                <div id="on2" style="display: none;" class="m-t-10">
+                <div style="display: none;" class="m-t-10">
                     <div class="input-group">
                         <input type="text" class="" placeholder="mm/dd/yyyy" id="datepicker-autoclose">
                     </div><!-- input-group -->
                 </div>
-                <div id="between2" style="display:none;">
+                <div style="display:none;">
                     <div class="input-daterange input-group m-t-10" id="date-range" style="width:250px !important;">
                         <input type="text" class="" name="start" placeholder="From date"/>
                         <span class="input-group-addon bg-custom text-white b-0">-</span>
@@ -149,7 +149,7 @@
             <input type="radio" name="status" value="" id="actdone">
             <label for=""><strong>Activity Done</strong></label><br>
             <div id="showactdone" style="display:none;">
-                <select id="datelist3">
+                <select onchange="getdiv(this)">
                     <option value="1">in the last</option>
                     <option value="2">On</option>
                     <option value="2">before</option>
@@ -197,7 +197,7 @@
             <input type="radio" name="notes" value="" id="withoutnotes">
             <label for=""><strong>Without Any Notes</strong></label><br>
             <div id="shownotes" style="display:none;">
-                <select id="datelist4">
+                <select onchange="getdiv(this)">
                     <option value="1">in the last</option>
                     <option value="2">On</option>
                     <option value="2">before</option>
@@ -249,105 +249,30 @@
             document.getElementById(id).style.display = visible;
         }
     </script>
-    <script>
-        $(document).ready(function(){
-            $("#datelist1").click(function(){
-                if ($(this).val()  == 1) {
-                    $("#inthelast1").css("display","block");
-                }
-                else
-                {
-                    $("#inthelast1").css("display","none");
-                }
-                if ($(this).val()  == 2) {
-                    $("#on1").css("display","block");
-                }
-                else
-                {
-                    $("#on1").css("display","none");
-                }
-                if ($(this).val()  == 3) {
-                    $("#between1").css("display","block");
-                }
-                else
-                {
-                    $("#between1").css("display","none");
-                }
-            });
-            $("#datelist2").click(function(){
-                if ($(this).val()  == 1) {
-                    $("#inthelast2").css("display","block");
-                }
-                else
-                {
-                    $("#inthelast2").css("display","none");
-                }
-                if ($(this).val()  == 2) {
-                    $("#on2").css("display","block");
-                }
-                else
-                {
-                    $("#on2").css("display","none");
-                }
-                if ($(this).val()  == 3) {
-                    $("#between2").css("display","block");
-                }
-                else
-                {
-                    $("#between2").css("display","none");
-                }
-            });
-            $('')
-            $("#datelist3").click(function(){
-                if ($(this).val()  == 1) {
-                    $("#inthelast3").css("display","block");
-                }
-                else
-                {
-                    $("#inthelast3").css("display","none");
-                }
-                if ($(this).val()  == 2) {
-                    $("#on3").css("display","block");
-                }
-                else
-                {
-                    $("#on3").css("display","none");
-                }
-                if ($(this).val()  == 3) {
-                    $("#between3").css("display","block");
-                }
-                else
-                {
-                    $("#between3").css("display","none");
-                }
-                
-            });
-            $("#datelist4").click(function(){
-                if ($(this).val()  == 1) {
-                    $("#inthelast4").css("display","block");
-                }
-                else
-                {
-                    $("#inthelast4").css("display","none");
-                }
-                if ($(this).val()  == 2) {
-                    $("#on4").css("display","block");
-                }
-                else
-                {
-                    $("#on4").css("display","none");
-                }
-                if ($(this).val()  == 3) {
-                    $("#between4").css("display","block");
-                }
-                else
-                {
-                    $("#between4").css("display","none");
-                }
-                
-            });
-        });
+    <script type="text/javascript">
+        function getdiv(object) {
+            var value = object.value;
+            if (value==1) {
+                object.parentNode.children[2].style.display = 'block';
+            }
+            else {
+                object.parentNode.children[2].style.display = 'none';
+            }
+             if (value==2) {
+                object.parentNode.children[3].style.display = 'block';
+            }
+            else {
+                object.parentNode.children[3].style.display = 'none';
+            }
+             if (value==3) {
+                object.parentNode.children[4].style.display = "block";
+            }
+            else {
+                object.parentNode.children[4].style.display = 'none';
+            }
+        }
     </script>
+    
     <script>
         $(document).ready(function() {
             $('input[type="radio"]').click(function() {

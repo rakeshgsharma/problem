@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<title>JavaScript Form Validation using a sample registration form</title>
+<meta name="keywords" content="example, JavaScript Form Validation, Sample registration form" />
+<meta name="description" content="This document is an example of JavaScript Form Validation using a sample registration form. " />
+<link rel='stylesheet' href='js-form-validation.css' type='text/css' />
+<script src="sample-registration-form-validation.js"></script>
+</head>
+<style type="text/css">
+	h1 {
+margin-left: 70px;
+}
+form li {
+list-style: none;
+margin-bottom: 5px;
+}
+
+form ul li label{
+float: left;
+clear: left;
+width: 100px;
+text-align: right;
+margin-right: 10px;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:14px;
+}
+
+form ul li input, select, span {
+float: left;
+margin-bottom: 10px;
+}
+
+form textarea {
+float: left;
+width: 350px;
+height: 150px;
+}
+
+[type="submit"] {
+clear: left;
+margin: 20px 0 0 230px;
+font-size:18px
+}
+
+p {
+margin-left: 70px;
+font-weight: bold;
+}
+</style>	
+<body onload="document.registration.userid.focus();">
+<h1>Registration Form</h1>
+Use tab keys to move from one input field to the next.
+<form name='registration' onSubmit="return formValidation();">
+<ul>
+<li><label for="userid">User id:</label></li>
+<li><input type="text" name="uid" size="12" id="one" onblur="userid_validation(uid,5,12)"  onKeyup="checkform()"/></li>
+<div id="error" class="errmsg"></div>
+<li><label for="passid">Password:</label></li>
+<li><input type="password" name="passid" size="12" id="two" onblur="passid_validation(passid)" onKeyup="checkform()" /></li>
+<span id="error1" class="errmsg"></span>
+<li><label for="username">Name:</label></li>
+<li><input type="text" name="uname" size="50" id="three"  onblur="allLetter(uname)" onKeyup="checkform()" /></li>
+<span id="error2" class="errmsg"></span>
+<li><label for="address">Address:</label></li>
+<li><input type="text" name="uadd" size="50" id="four" onblur="alphanumeric(uadd)" onKeyup="checkform()" /></li>
+<span id="error3" class="errmsg"></span>
+<li><label for="country">Country:</label></li>
+<li><select name="country" id="five" onblur="countryselect(ucountry)" onchange="checkform()">
+<option selected="" value="Default"  name="ucountry" >(Please select a country)</option>
+<option value="AF">Australia</option>
+<option value="AL">Canada</option>
+<option value="DZ">India</option>
+<option value="AS">Russia</option>
+<option value="AD">USA</option>
+</select></li>
+<span id="error4" class="errmsg"></span>
+<li><label for="zip">ZIP Code:</label></li>
+<li><input type="text" name="uzip" id="six" onblur="allnumeric(uzip)" onKeyup="checkform()"></li>
+<span id="error5" class="errmsg"></span>
+
+<li><label for="email">Email:</label></li>
+<li><input type="text" name="email" size="50" id="seven" onblur="ValidateEmail(email)" onKeyup="checkform()" /></li>
+<span id="error6" class="errmsg"></span>
+<li><label id="gender">Sex:</label></li>
+<li><input type="radio" name="msex" value="Male" id="eight" onblur="validsex(msex,fsex)" onKeyup="checkform()" /><span>Male</span></li>
+<li><input type="radio" name="fsex" value="Female" id="eight"  onblur="validsex(msex,fsex)" onKeyup="checkform()" /><span>Female</span></li>
+<span id="error7" class="errmsg"></span>
+<li><label for="desc">About:</label></li>
+<li><textarea name="udesc" onblur="(udesc,1,50)" id="nine" onKeyup="checkform()"></textarea></li>
+
+<li><input type="submit" name="submit" value="Submit" id="submitbutton" disabled></li>
+<span id="error9" class="errmsg"></span>
+</ul>
+</form>
+
+
+<script type="text/javascript">
+	function formValidation()
+{
+var uid = document.registration.userid;
+var passid = document.registration.passid;
+var uname = document.registration.username;
+var uadd = document.registration.address;
+var ucountry = document.registration.country;
+var uzip = document.registration.zip;
+var uemail = document.registration.email;
+var umsex = document.registration.msex;
+var ufsex = document.registration.fsex;
+var udesc=document.registration.desc; 
+
+} function userid_validation(uid,mx,my)
+{
+var uid_len = uid.value.length;
+if (uid_len == 0 || uid_len >= my || uid_len < mx)
+{
+document.getElementById('error').innerHTML="User Id should not be empty / length be between "+mx+" to "+my;
+document.getElementById('one').style.borderColor="red";
+document.getElementById('one').style.background='#e35152';
+uid.focus();
+return false;
+}
+else {
+        document.getElementById('error').innerHTML = "";
+        document.getElementById('one').style.borderColor="blue"
+        document.getElementById('one').style.background="#ccffcc";
+        return true;
+    }
+}
+function passid_validation(passid)
+{
+var pass=/^(?=(.*[\W]){1,})(?=(.*?[A-Z]){1,})(?!.*\s).{7,32}$/;
+var password=document.getElementById('two');
+if(password.value.match(pass))
+{
+	 document.getElementById('error1').innerHTML = "";
+        document.getElementById('two').style.borderColor="blue"
+        document.getElementById('two').style.background="#ccffcc";
+        return true;
+
+}
+else{
+	document.getElementById('error1').innerHTML="Password must contain one uppercase letter and one one special char";
+document.getElementById('two').style.borderColor="red";
+document.getElementById('two').style.background='#e35152';
+passid.focus();
+return false;
+}
+}
+
+function allLetter(uname)
+{ 
+	var letters = /^[A-Za-z]+$/;
+	if(uname.value.match(letters))
+	{
+		document.getElementById('error2').innerHTML = "";
+		document.getElementById('three').style.borderColor="blue";
+		document.getElementById('three').style.background='#ccffcc';
+		return true;
+	}
+	else
+	{
+		document.getElementById("error2").innerHTML='Username must have alphabet characters only';
+		document.getElementById('three').style.borderColor="red";
+		document.getElementById('three').style.background='#e35152';
+		uname.focus();
+		return false;
+	}
+
+}
+
+function alphanumeric(uadd,mx,my)
+{ 
+
+var uadd_len = uadd.value.length;
+if (uadd_len == 0 ||uadd_len >= my || uadd_len < mx)
+{
+document.getElementById('error3').innerHTML="address shoul not be empty";
+document.getElementById('four').style.borderColor="red";
+document.getElementById('four').style.background='#e35152';
+uadd.focus();
+return false;
+}
+else{
+	document.getElementById('error3').innerHTML = "";
+	document.getElementById('four').style.borderColor="blue";
+	document.getElementById('four').style.background='#ccffcc';
+return true;
+}
+}
+function countryselect(ucountry)
+{
+if(ucountry.value == "Default")
+{
+document.getElementById("error4").innerHTML='Select your country from the list';
+document.getElementById('five').style.borderColor="red";
+document.getElementById('five').style.background='#e35152';
+ucountry.focus();
+return false;
+}
+else
+{
+	document.getElementById('error4').innerHTML = "";
+	document.getElementById('five').style.borderColor="blue";
+	document.getElementById('five').style.background='#ccffcc';
+return true;
+}
+}
+function allnumeric(uzip)
+{ 
+var numbers = /^[0-9]+$/;
+if(uzip.value.match(numbers))
+{
+	document.getElementById('error5').innerHTML = "";
+	document.getElementById('six').style.borderColor="blue";
+	document.getElementById('six').style.background='#ccffcc';
+return true;
+}
+else
+{
+document.getElementById("error5").innerHTML='ZIP code must have numeric characters only';
+document.getElementById('six').style.borderColor="red";
+document.getElementById('six').style.background='#e35152';
+uzip.focus();
+return false;
+}
+}
+function ValidateEmail(uemail)
+{
+var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+if(uemail.value.match(mailformat))
+{
+	document.getElementById('error6').innerHTML = "";
+	document.getElementById('seven').style.borderColor="blue";
+	document.getElementById('seven').style.background='#ccffcc';
+return true;
+}
+else
+{
+document.getElementById("error6").innerHTML="You have entered an invalid email address!";
+document.getElementById('seven').style.borderColor="red";
+document.getElementById('seven').style.background='#e35152';
+uemail.focus();
+return false;
+}
+} function validsex(umsex,ufsex)
+{
+x=0;
+
+if(umsex.checked) 
+{
+x++;
+} if(ufsex.checked)
+{
+x++; 
+}
+if(x==0)
+{
+document.getElementById("error7").innerHTML='Select Male/Female';
+document.getElementById('eight').style.borderColor="red";
+document.getElementById('eight').style.background='#e35152';
+umsex.focus();
+return false;
+}
+else{document.getElementById('error7').innerHTML = "";
+document.getElementById('eight').style.borderColor="blue";
+document.getElementById('eight').style.background='#ccffcc';
+return true; 
+}
+}
+function validesc(udesc,mx,my)
+{
+	var udesc_len = udesc.value.length;
+if (udesc_len == 0 ||udesc_len >= my || udesc_len < mx)
+{
+document.getElementById("error9").innerHTML="the length of desc should be between "+mx+" to "+my;
+document.getElementById('nine').style.background='#e35152';
+udesc.focus();
+return false;
+}
+else
+{
+alert('Form Succesfully Submitted');
+window.location.reload()
+return true;
+}
+}
+
+</script>
+<script>
+    function checkform()
+    {
+        var f = document.forms["registration"].elements;
+        var cansubmit = true;
+
+        for (var i = 0; i < f.length; i++) {
+            if (f[i].value.length == 0) cansubmit = false;
+        }
+
+        document.getElementById('submitbutton').disabled = !cansubmit;
+    }
+</script> 
+</body>
+</html>
